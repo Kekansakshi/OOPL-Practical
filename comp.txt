@@ -1,0 +1,97 @@
+#include<iostream>
+using namespace std;
+
+class Complex {
+public:
+    int r, img;
+
+    Complex() {
+        r = 0;
+        img = 0;
+    }
+
+    void accept() {
+        cout << "Enter value of real part: ";
+        cin >> r;
+        cout << "Enter value of imaginary part: ";
+        cin >> img;
+    }
+
+    void display() {
+        cout << "\nComplex number:\t" << r << "+" << img << "i" << endl;
+    }
+
+    Complex operator+(Complex &a) {
+        Complex temp;
+        temp.r = r + a.r;
+        temp.img = img + a.img;
+        return temp;
+    }
+
+    Complex operator-(Complex &a) {
+        Complex temp;
+        temp.r = r - a.r;
+        temp.img = img - a.img;
+        return temp;
+    }
+
+    Complex operator*(Complex &a) {
+        Complex temp;
+        temp.r = r * a.r - img * a.img; // Corrected typo
+        temp.img = r * a.img + img * a.r;
+        return temp;
+    }
+
+    Complex operator/(Complex &a) {
+        Complex temp;
+        temp.r = (r * a.r + img * a.img) / (a.r * a.r + a.img * a.img);
+        temp.img = (img * a.r - r * a.img) / (a.r * a.r + a.img * a.img);
+        return temp;
+    }
+};
+
+int main() {
+    Complex c1, c2, c3;
+    int ch;
+    cout << "\nComplex number 1";
+    c1.accept();
+    cout << "\nComplex number 2";
+    c2.accept();
+
+    do {
+        cout << "\nEnter your choice";
+        cout << "\n1. Addition\n2. Subtraction\n3. Multiplication\n4. Division\n5. Exit";
+        cin >> ch;
+
+        switch (ch) {
+            case 1:
+                cout << "\nAddition";
+                c3 = c1 + c2;
+                c3.display();
+                break;
+            case 2:
+                cout << "\nSubtraction";
+                c3 = c1 - c2;
+                c3.display();
+                break;
+            case 3:
+                cout << "\nMultiplication";
+                c3 = c1 * c2;
+                c3.display();
+                break;
+            case 4:
+                cout << "\nDivision";
+                c3 = c1 / c2;
+                c3.display();
+                break;
+            case 5:
+                cout << "\nExiting...";
+                break;
+            default:
+                cout << "\nInvalid choice";
+                break;
+        }
+    } while (ch != 5);
+
+    return 0;
+}
